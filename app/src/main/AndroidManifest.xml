@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 액티비티 수동 추가시 설정 -->
+        <activity android:name=".DrawActivity"/>
+
     </application>
 
 </manifest>
