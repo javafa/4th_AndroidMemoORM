@@ -8,20 +8,19 @@ import android.widget.TextView;
 
 import com.veryworks.android.androidmemoorm.model.PicNote;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pc on 9/22/2017.
  */
 
-public class CustomAdapter extends RecyclerView.Adapter{
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.Holder>{
     // 1. 데이터 저장소
-    private ArrayList<PicNote> data;
+    private List<PicNote> data;
 
-    public void setData(ArrayList<PicNote> data){
+    public void setData(List<PicNote> data){
         this.data = data;
     }
-
     // 2. 개수
     @Override
     public int getItemCount() { // 목록의 전체 길이를 결정
@@ -29,7 +28,7 @@ public class CustomAdapter extends RecyclerView.Adapter{
     }
     // 3. 홀더 생성
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         // 1. 만들어둔 layout 파일을 inflate 한다
         View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_list, parent, false);
@@ -38,14 +37,13 @@ public class CustomAdapter extends RecyclerView.Adapter{
         // 3. 생성된 Holder를 리턴한다.
         return holder;
     }
-
     // 4. 홀더 사용
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(Holder holder, int position) {
         // 1. 데이터저장소에 객체단위로 꺼내둔다
         PicNote picNote = data.get(position);
         // 2. 홀더에 있는 위젯에 값을 입력한다.
-        ((Holder)holder).setTitle(picNote.getTitle());
+        holder.setTitle(picNote.getTitle());
     }
 
     // 0. 홀더 만들기
