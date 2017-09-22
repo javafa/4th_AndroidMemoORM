@@ -2,8 +2,8 @@ package com.veryworks.android.androidmemoorm.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,32 +17,17 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class FileUtil {
 
-    public static String read(Context context, String filename) throws IOException {
-        StringBuilder sb = new StringBuilder();
+    public static Bitmap read(Context context, String filename) throws IOException {
+        Bitmap bitmap = null;
         FileInputStream fis = null;
-        BufferedInputStream bis = null;
         try {
             fis = context.openFileInput(filename);
-            // 버퍼를 달고
-            bis = new BufferedInputStream(fis);
-            // 한번에 읽어올 버퍼양을 설정
-            byte buffer[] = new byte[1024];
-            // 현재 읽은양을 담는 변수설정
-            int count = 0;
-            while( (count = bis.read(buffer)) != -1 ){
-                String data = new String(buffer, 0, count);
-                sb.append(data);
-            }
+            // 스트림을 Bitmap으로 변환
+            bitmap = BitmapFactory.decodeStream(fis);
         } catch (IOException e) {
             throw e;
         } finally {
-            if(bis != null) {
-                try {
-                    bis.close();
-                } catch (IOException e) {
-                    throw e;
-                }
-            }
+
             if(fis != null) {
                 try {
                     fis.close();
@@ -51,7 +36,7 @@ public class FileUtil {
                 }
             }
         }
-        return sb.toString();
+        return bitmap;
     }
 
 
