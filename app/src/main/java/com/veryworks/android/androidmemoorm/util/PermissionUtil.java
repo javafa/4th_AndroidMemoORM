@@ -42,9 +42,7 @@ public class PermissionUtil {
         }
         // 4.승인이 안된 권한이 있을 경우만 승인 요청
         if(requires.size() > 0){
-            String perms[] = new String[requires.size()];
-            perms = requires.toArray(perms);
-
+            String perms[] = requires.toArray(new String[requires.size()]);
             activity.requestPermissions(perms, req_code);
             return false;
         }else {
